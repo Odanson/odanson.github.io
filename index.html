@@ -61,7 +61,7 @@
           <ul class="space-y-2 text-sm">
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#intro">Intro</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#highlights">Highlights</a></li>
-            <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#pubs">Publications</a></li>
+            <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#publications">Publications</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#experience">Experience</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#journey">Journey</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#contact">Contact</a></li>
@@ -99,7 +99,7 @@
         <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">Researching complexity, consciousness, and learning.</h2>
         <p class="mt-4 text-ink-600 dark:text-ink-300">I work on the neural basis of consciousness and memory, using <span class="font-medium">statistical complexity</span>, <span class="font-medium">symbolic dynamics</span>, and <span class="font-medium">information-theoretic</span> methods. I also study <span class="font-medium">neural reinforcement learning</span>—representation learning, meta-control, and risk sensitivity.</p>
         <div class="mt-6 grid gap-4 sm:grid-cols-2">
-          <a href="#pubs" class="rounded-2xl border border-ink-200 dark:border-ink-700 p-4 hover:bg-ink-50 dark:hover:bg-ink-800">View publications</a>
+          <a href="#publications" class="rounded-2xl border border-ink-200 dark:border-ink-700 p-4 hover:bg-ink-50 dark:hover:bg-ink-800">View publications</a>
           <a href="#highlights" class="rounded-2xl border border-ink-200 dark:border-ink-700 p-4 hover:bg-ink-50 dark:hover:bg-ink-800">Current projects</a>
         </div>
       </section>
@@ -108,7 +108,7 @@
       <section id="highlights" class="mt-16">
         <div class="flex items-end justify-between">
           <h3 class="text-2xl font-semibold tracking-tight">Research Highlights</h3>
-          <div class="text-sm"><a class="underline" href="#pubs">See all →</a></div>
+          <div class="text-sm"><a class="underline" href="#publications">See all →</a></div>
         </div>
         <div class="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           <article class="group rounded-2xl border border-ink-200 dark:border-ink-700 p-5 hover:shadow-sm transition">
@@ -136,7 +136,7 @@
       </section>
 
       <!-- Publications with filter -->
-      <section id="pubs" class="mt-16">
+      <section id="publications" class="mt-16">
         <h3 class="text-2xl font-semibold tracking-tight">Publications</h3>
         <div class="mt-4 flex flex-wrap items-center gap-3 text-sm">
           <label class="inline-flex items-center gap-2 border border-ink-200 dark:border-ink-700 rounded-xl px-3 py-1.5">
@@ -356,6 +356,14 @@
                 choose file<input id="bibFile" type="file" accept=".bib" class="hidden">
               </label></p>
               <p class="mt-2 text-xs">We read <code>title</code>, <code>author</code>, <code>year</code>, <code>journal</code>/<code>booktitle</code>, <code>doi</code>, <code>eprint</code>, <code>url</code>. Add <code>keywords = {selected}</code> to mark Selected Works.</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <button id="exportPubs" class="px-2.5 py-1 text-xs rounded-md border border-gray-300 dark:border-gray-700">
+                  Export pubs.json
+                </button>
+                <button id="clearLocal" class="px-2.5 py-1 text-xs rounded-md border border-gray-300 dark:border-gray-700">
+                  Clear local
+                </button>
+              </div>
             </div>
           </aside>
 
@@ -841,6 +849,28 @@
       });
     }
     renderCvPubs();
+
+    // Export / Clear handlers
+    function downloadFile(filename, text) {
+      const blob = new Blob([text], {type: 'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(a.href);
+      a.remove();
+    }
+
+    document.getElementById('exportPubs')?.addEventListener('click', () => {
+      downloadFile('pubs.json', JSON.stringify(PUBS, null, 2));
+    });
+
+    document.getElementById('clearLocal')?.addEventListener('click', () => {
+      localStorage.removeItem(LS_KEY);
+      PUBS = dedupe(PUBS.filter(p => byKey(p).startsWith('fallback:') === false)); // keep hard-coded entries
+      render();
+    });
   </script>
 </body>
 </html>
