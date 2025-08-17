@@ -393,6 +393,106 @@
           }
         ];
 
+        // ===== Publications & Preprints =====
+
+        // 1) Replace PUBS array with your new entries:
+        PUBS = [
+          {
+            id: "odan2024-complexity",
+            type: "preprint",
+            year: 2024,
+            title: "Complexity Measures in Diverse Dynamical Regimes and Their Application to States of Consciousness",
+            authors: ["Odan, Samson", "Barrett, Adam B. (Supervisor)"],
+            venue: "Mathematical and Computational Biology (Preprints.org)",
+            doi: "10.20944/preprints202410.0649.v1",
+            arxiv: null,
+            pdf: "https://doi.org/10.20944/preprints202410.0649.v1",
+            code: null,
+            selected: true,
+            bibtex: `@article{odan2024complexity,
+  title={Complexity Measures in Diverse Dynamical Regimes and Their Application to States of Consciousness},
+  author={Odan, Samson and Barrett, Adam B.},
+  year={2024},
+  journal={Mathematical and Computational Biology},
+  doi={10.20944/preprints202410.0649.v1}
+}`
+          },
+          {
+            id: "odan2024-metaheuristic",
+            type: "preprint",
+            year: 2024,
+            title: "Metaheuristic Method for Solving Systems of Equations",
+            authors: ["Odan, Samson"],
+            venue: "Neural and Evolutionary Computing (cs.NE)",
+            doi: "10.48550/arXiv.2409.16958",
+            arxiv: "2409.16958",
+            pdf: "https://arxiv.org/abs/2409.16958",
+            code: null,
+            selected: true,
+            bibtex: `@misc{odan2024metaheuristic,
+  title={Metaheuristic Method for Solving Systems of Equations},
+  author={Samson Odan},
+  year={2024},
+  eprint={2409.16958},
+  archivePrefix={arXiv},
+  primaryClass={cs.NE},
+  doi={10.48550/arXiv.2409.16958},
+  url={https://arxiv.org/abs/2409.16958}
+}`
+          }
+        ];
+
+        // 2) Add persistence + merge/dedupe helpers right after PUBS:
+        // ===== Persistence + merge/dedupe =====
+        const LS_KEY = 'samson_pubs_v1';
+
+        function loadLocal() {
+          try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch { return []; }
+        }
+        function saveLocal(pubs) {
+          localStorage.setItem(LS_KEY, JSON.stringify(pubs));
+        }
+        function byKey(p) {
+          const doi = (p.doi||'').toLowerCase();
+          const ax  = (p.arxiv||'').toLowerCase();
+          if (doi) return 'doi:'+doi;
+          if (ax)  return 'arxiv:'+ax;
+          if (p.id) return 'id:'+p.id;
+          return 'fallback:'+((p.title||'').toLowerCase()+'|'+(p.year||''));
+        }
+        function dedupe(list) {
+          const seen = new Map();
+          const score = o => ['doi','arxiv','pdf','code','venue','authors','bibtex'].reduce((s,f)=>s+(o[f]?1:0),0);
+          for (const p of list) {
+            const k = byKey(p);
+            if (!seen.has(k)) seen.set(k, p);
+            else {
+              const a = seen.get(k), b = p;
+              seen.set(k, score(b) > score(a) ? b : a);
+            }
+          }
+          return [...seen.values()];
+        }
+
+        // 3) Change initialization to merge with localStorage and render:
+        // Load local additions (if any), merge with hard-coded PUBS, then render
+        PUBS = dedupe([...(PUBS||[]), ...loadLocal()]);
+        render();
+
+        // 4) Update the import handler to accumulate and persist:
+        function handleBibText(text){
+          const imported = parseBibTex(text);
+          if(imported.length){
+            PUBS = dedupe(PUBS.concat(imported));   // accumulate
+            saveLocal(PUBS);                         // persist
+            render();
+            drop.classList.remove('drop-active');
+            drop.querySelector('p.font-medium').textContent = `Loaded ${imported.length} item${imported.length>1?'s':''} from .bib`;
+          } else {
+            drop.querySelector('p.font-medium').textContent = 'No entries detected in .bib';
+          }
+        }
+
         // ===== 2) Rendering helpers =====
         const pubList = document.getElementById('pubList');
         const selectedList = document.getElementById('selectedList');
@@ -540,7 +640,8 @@
         function handleBibText(text){
           const imported = parseBibTex(text);
           if(imported.length){
-            PUBS = imported;
+            PUBS = dedupe(PUBS.concat(imported));   // accumulate
+            saveLocal(PUBS);                         // persist
             render();
             drop.classList.remove('drop-active');
             drop.querySelector('p.font-medium').textContent = `Loaded ${imported.length} item${imported.length>1?'s':''} from .bib`;
