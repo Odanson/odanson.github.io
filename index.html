@@ -63,22 +63,32 @@
              bg-white/90 dark:bg-ink-900/80 backdrop-blur
              lg:translate-x-0 lg:static lg:w-auto lg:max-w-none lg:border-b-0 lg:border-r
              sticky-safe">
-      <!-- ... your existing sidebar inner content ... -->
-      <div class="p-6 lg:p-8 flex lg:flex-col items-center lg:items-start gap-6 lg:gap-8">
-        <div class="shrink-0">
-          <img src="portrait.jpg" alt="Portrait of Samson Odan" class="w-20 h-20 rounded-2xl object-cover shadow" />
+
+      <div class="p-6 lg:p-8 flex flex-col items-center lg:items-start text-center lg:text-left gap-5 lg:gap-7">
+
+        <!-- Portrait -->
+        <img src="portrait.jpg" alt="Portrait of Samson Odan"
+             class="w-24 h-24 lg:w-20 lg:h-20 rounded-full object-cover shadow" />
+
+        <!-- Name -->
+        <h1 class="text-2xl lg:text-xl font-semibold tracking-tight">Samson Odan</h1>
+
+        <!-- Tagline -->
+        <p class="max-w-[20rem] lg:max-w-none text-sm text-ink-500 dark:text-ink-300 leading-snug">
+          PhD Candidate · Max Planck School of Cognition · MPI MiS
+        </p>
+
+        <!-- Links -->
+        <div class="mt-1 grid grid-cols-2 gap-x-4 gap-y-2 w-full max-w-xs lg:max-w-none text-sm">
+          <a class="underline justify-self-center lg:justify-self-start"
+             href="#" id="emailReveal" data-user="odansamson" data-domain="gmail" data-tld="com">Email</a>
+          <a class="underline justify-self-center lg:justify-self-start" href="https://github.com/Odanson">GitHub</a>
+          <a class="underline justify-self-center lg:justify-self-start" href="https://www.linkedin.com/in/samson-odan-930399118">LinkedIn</a>
+          <a class="underline justify-self-center lg:justify-self-start" href="https://orcid.org/0009-0002-2909-0831">ORCID</a>
+          <a class="underline justify-self-center lg:justify-self-start col-span-2" href="https://x.com/OdansonS">X</a>
         </div>
-        <div class="flex-1">
-          <h1 class="text-xl font-semibold tracking-tight">Samson Odan</h1>
-          <p class="mt-1 text-sm text-ink-500 dark:text-ink-300">PhD Candidate · Max Planck School of Cognition · MPI MiS</p>
-          <div class="mt-3 flex flex-wrap gap-3 text-sm">
-            <a class="underline" href="#" id="emailReveal" data-user="odansamson" data-domain="gmail" data-tld="com">Email</a>
-            <a class="underline" href="https://github.com/Odanson">GitHub</a>
-            <a class="underline" href="https://www.linkedin.com/in/samson-odan-930399118">LinkedIn</a>
-            <a class="underline" href="https://orcid.org/0009-0002-2909-0831">ORCID</a>
-            <a class="underline" href="https://x.com/OdansonS">X</a>
-          </div>
-        </div>
+
+        <!-- Desktop nav (unchanged, still hidden on mobile) -->
         <nav class="hidden lg:block w-full">
           <ul class="space-y-2 text-sm">
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#intro">Intro</a></li>
@@ -92,11 +102,27 @@
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#contact">Contact</a></li>
           </ul>
         </nav>
-        <div class="mt-auto grid grid-cols-1 gap-2 w-full lg:grid-cols-2">
-          <button id="themeToggle" class="w-full text-center rounded-xl border border-ink-200 dark:border-ink-700 px-3 py-1.5 text-xs" aria-pressed="false">Toggle theme</button>
-          <button id="printCV" class="w-full text-center rounded-xl border border-ink-200 dark:border-ink-700 px-3 py-1.5 text-xs">Print CV</button>
-          <button id="genOG" class="w-full text-center rounded-xl border border-ink-200 dark:border-ink-700 px-3 py-1.5 text-xs">Generate social image</button>
-          <a href="Samson_Odan_CV.pdf" class="w-full text-center rounded-xl border border-ink-200 dark:border-ink-700 px-3 py-1.5 text-xs">Download CV</a>
+
+        <!-- Actions -->
+        <div class="mt-auto grid grid-cols-2 gap-3 w-full max-w-xs lg:max-w-none">
+          <button id="themeToggle"
+                  class="text-center rounded-xl border border-ink-200 dark:border-ink-700 px-3 py-1.5 text-xs"
+                  aria-pressed="false">Toggle theme</button>
+
+          <button id="printCV"
+                  class="text-center rounded-xl border border-ink-200 dark:border-ink-700 px-3 py-1.5 text-xs">
+            Print CV
+          </button>
+
+          <button id="genOG"
+                  class="col-span-2 text-center rounded-xl border border-ink-200 dark:border-ink-700 px-3 py-1.5 text-xs">
+            Generate social image
+          </button>
+
+          <a href="Samson_Odan_CV.pdf"
+             class="col-span-2 text-center rounded-xl border border-ink-200 dark:border-ink-700 px-3 py-1.5 text-xs">
+            Download CV
+          </a>
         </div>
       </div>
     </aside>
