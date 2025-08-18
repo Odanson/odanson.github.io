@@ -406,18 +406,53 @@
 
     /* ----------------------- PUBLICATIONS CORE ----------------------- */
     const LS_KEY = 'samson_pubs_v1';
-    function loadLocal(){ try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch { return []; } }
-    function saveLocal(pubs){ localStorage.setItem(LS_KEY, JSON.stringify(pubs)); }
-    function byKey(p){ const doi=(p.doi||'').toLowerCase(), ax=(p.arxiv||'').toLowerCase(); if(doi) return 'doi:'+doi; if(ax) return 'arxiv:'+ax; if(p.id) return 'id:'+p.id; return 'fallback:'+((p.title||'').toLowerCase()+'|'+(p.year||'')); }
-    function dedupe(list){
-      const seen=new Map();
-      const score=o=>['doi','arxiv','pdf','code','venue','authors','bibtex'].reduce((s,f)=>s+(o[f]?1:0),0);
-      for(const p of list){ const k=byKey(p); if(!seen.has(k)) seen.set(k,p); else { const a=seen.get(k), b=p; seen.set(k, score(b)>score(a)? b : a); } }
+
+    async function loadFromFile() {
+      try {
+        const r = await fetch('pubs.json', { cache: 'no-store' });
+        if (!r.ok) return [];
+        return await r.json();
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function loadLocal() {
+      try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch { return []; }
+    }
+    function saveLocal(pubs) {
+      localStorage.setItem(LS_KEY, JSON.stringify(pubs));
+    }
+
+    function byKey(p) {
+      const doi = (p.doi||'').toLowerCase();
+      const ax  = (p.arxiv||'').toLowerCase();
+      if (doi) return 'doi:'+doi;
+      if (ax)  return 'arxiv:'+ax;
+      if (p.id) return 'id:'+p.id;
+      return 'fallback:'+((p.title||'').toLowerCase()+'|'+(p.year||''));
+    }
+
+    function dedupe(list) {
+      const seen = new Map();
+      const score = o => ['doi','arxiv','pdf','code','venue','authors','bibtex'].reduce((s,f)=>s+(o[f]?1:0),0);
+      for (const p of list) {
+        const k = byKey(p);
+        if (!seen.has(k)) seen.set(k, p);
+        else {
+          const a = seen.get(k), b = p;
+          seen.set(k, score(b) > score(a) ? b : a);
+        }
+      }
       return [...seen.values()];
     }
-    async function loadRepoPubs(){
-      try{ const r = await fetch('/pubs.json', { cache: 'no-store' }); if (!r.ok) return []; return await r.json(); } catch { return []; }
-    }
+
+    // On page load: fetch pubs.json + merge with local
+    (async function initPubs(){
+      const filePubs = await loadFromFile();
+      PUBS = dedupe([...(PUBS||[]), ...filePubs, ...loadLocal()]);
+      renderPubs();
+    })();
 
     const pubList = document.getElementById('pubList');
     const selectedList = document.getElementById('selectedList');
@@ -426,7 +461,51 @@
     let showOnlySelected = false;
     let activeFilter = 'all';
 
-    function fmtAuthors(authors){ return (authors||[]).map(a => /odan/i.test(a) ? `<strong>${a}</strong>` : a).join(', '); }
+    // --- Align first pub card with the top of "Selected Works" ---
+    function alignPubsWithSelected() {
+      const aside = document.querySelector('#publications aside');
+      const selectedBox = aside?.querySelector('.p-4'); // the Selected Works card container
+      const pubListEl = document.getElementById('pubList');
+      if (!aside || !selectedBox || !pubListEl) return;
+
+      const aTop = aside.getBoundingClientRect().top + window.scrollY;
+      const sTop = selectedBox.getBoundingClientRect().top + window.scrollY;
+      const offset = Math.max(0, Math.round(sTop - aTop));
+      pubListEl.style.marginTop = offset + 'px';
+    }
+
+    window.addEventListener('load', alignPubsWithSelected);
+    window.addEventListener('resize', alignPubsWithSelected);
+    // also call after PUBS renders (it reflows heights)
+    const _renderPubs = renderPubs;
+    renderPubs = function() { _renderPubs(); alignPubsWithSelected(); };
+
+    function fmtAuthors(authors) {
+      function toSurnameInitial(raw) {
+        if (!raw) return '';
+        // Remove parenthetical notes like "(Supervisor)"
+        let a = raw.replace(/\([^)]*\)/g, '').trim();
+
+        // Try "Last, First ..." form first
+        if (a.includes(',')) {
+          const [last, firstPart] = a.split(',').map(s => s.trim());
+          const initial = firstPart ? firstPart[0].toUpperCase() : '';
+          const lastFmt = /odan/i.test(last) ? `<strong>${last}</strong>` : last;
+          return `${lastFmt}.${initial}`;
+        }
+
+        // Fallback: "First Middle Last"
+        const parts = a.split(/\s+/).filter(Boolean);
+        const last = parts.pop() || '';
+        const first = parts.shift() || '';
+        const initial = first ? first[0].toUpperCase() : '';
+        const lastFmt = /odan/i.test(last) ? `<strong>${last}</strong>` : last;
+        return `${lastFmt}.${initial}`;
+      }
+
+      return (authors || []).map(toSurnameInitial).join(', ');
+    }
+
     function linkBadge(label, href){ if(!href) return ''; return `<a href="${href}" target="_blank" rel="noopener" class="chip">${label}</a>`; }
     function buildLinks(p){
       const out = [];
@@ -577,10 +656,16 @@
       const reader = new FileReader(); reader.onload = ev => handleBibText(ev.target.result); reader.readAsText(f);
     });
 
-    document.getElementById('exportPubs')?.addEventListener('click', ()=> {
-      const blob = new Blob([JSON.stringify(PUBS, null, 2)], {type: 'application/json'});
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'pubs.json';
-      document.body.appendChild(a); a.click(); URL.revokeObjectURL(a.href); a.remove();
+    document.getElementById('exportPubs')?.addEventListener('click', () => {
+      const merged = dedupe(PUBS);
+      const blob = new Blob([JSON.stringify(merged, null, 2)], {type: 'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'pubs.json';   // always named pubs.json
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(a.href);
+      a.remove();
     });
     document.getElementById('clearLocal')?.addEventListener('click', ()=>{ localStorage.removeItem(LS_KEY); renderPubs(); });
 
