@@ -37,11 +37,33 @@
   }</script>
 </head>
 <body class="bg-white text-ink-900 dark:bg-ink-900 dark:text-ink-100 antialiased">
-  <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-white dark:bg-ink-800 text-ink-900 dark:text-ink-50 px-3 py-2 rounded">Skip to content</a>
+
+  <!-- 1) Mobile header (place right after <body> and before your grid) -->
+  <!-- Mobile header -->
+  <header class="lg:hidden sticky top-0 z-40 bg-white/80 dark:bg-ink-900/60 backdrop-blur border-b border-ink-200/60 dark:border-ink-700/60">
+    <div class="px-4 h-12 flex items-center gap-3">
+      <button id="navToggle" class="p-2 rounded-lg border border-ink-200 dark:border-ink-700"
+              aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
+        <!-- hamburger icon -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <span class="font-semibold">Samson Odan</span>
+    </div>
+  </header>
 
   <div class="lg:grid lg:grid-cols-[320px,1fr] min-h-screen">
+    <!-- 2) Sidebar as off-canvas drawer -->
     <!-- Sidebar -->
-    <aside class="sticky-safe border-b lg:border-b-0 lg:border-r border-ink-200/60 dark:border-ink-700/60 bg-white/80 dark:bg-ink-900/60 backdrop-blur">
+    <aside id="sidebar"
+      class="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw]
+             -translate-x-full transition-transform duration-300 ease-out
+             border-r border-ink-200/60 dark:border-ink-700/60
+             bg-white/90 dark:bg-ink-900/80 backdrop-blur
+             lg:translate-x-0 lg:static lg:w-auto lg:max-w-none lg:border-b-0 lg:border-r
+             sticky-safe">
+      <!-- ... your existing sidebar inner content ... -->
       <div class="p-6 lg:p-8 flex lg:flex-col items-center lg:items-start gap-6 lg:gap-8">
         <div class="shrink-0">
           <img src="portrait.jpg" alt="Portrait of Samson Odan" class="w-20 h-20 rounded-2xl object-cover shadow" />
@@ -79,7 +101,10 @@
       </div>
     </aside>
 
-    <!-- Main Content -->
+    <!-- Backdrop for mobile drawer -->
+    <div id="backdrop" class="lg:hidden fixed inset-0 z-40 bg-black/40 hidden"></div>
+
+    <!-- ...rest of your main content... -->
     <main id="content" class="px-5 sm:px-8 md:px-12 lg:px-16 xl:px-24 py-10">
       <!-- Intro / Hero -->
       <section id="intro" class="max-w-4xl">
@@ -770,6 +795,36 @@
       });
     }
     renderCvExp();
+
+    // 3) Off-canvas sidebar controls (mobile)
+    const navBtn   = document.getElementById('navToggle');
+    const sidebar  = document.getElementById('sidebar');
+    const backdrop = document.getElementById('backdrop');
+
+    function setNav(open) {
+      if (open) {
+        sidebar.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        navBtn?.setAttribute('aria-expanded', 'true');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        backdrop.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        navBtn?.setAttribute('aria-expanded', 'false');
+      }
+    }
+    navBtn?.addEventListener('click', () => {
+      const willOpen = sidebar.classList.contains('-translate-x-full');
+      setNav(willOpen);
+    });
+    backdrop?.addEventListener('click', () => setNav(false));
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') setNav(false); });
+
+    // Close after clicking a sidebar link on mobile
+    sidebar?.querySelectorAll('a[href^="#"], a[href^="http"]').forEach(a=>{
+      a.addEventListener('click', () => { if (window.innerWidth < 1024) setNav(false); });
+    });
   </script>
 </body>
 </html>
