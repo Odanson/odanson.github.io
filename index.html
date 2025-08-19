@@ -618,54 +618,52 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Print the official PDF instead of the web page
-    document.getElementById('printCV')?.addEventListener('click', () => {
+    document.getElementById('printCV')?.addEventListener('click', (e) => {
+      e.preventDefault();
       const pdfUrl = 'Samson_Odan_CV.pdf';
 
-      // Create hidden iframe
-      const iframe = document.createElement('iframe');
-      iframe.style.position = 'fixed';
-      iframe.style.right = '0';
-      iframe.style.bottom = '0';
-      iframe.style.width = '0';
-      iframe.style.height = '0';
-      iframe.style.border = '0';
-      iframe.src = pdfUrl;
+      // Open a helper tab
+      const w = window.open('', '_blank');
+      if (!w) {
+        // Popup blocked: just open the PDF; user can press Cmd/Ctrl+P
+        window.location.href = pdfUrl;
+        return;
+      }
 
-      iframe.onload = () => {
-        const w = iframe.contentWindow;
-        if (!w) {
-          // Fallback if iframe is sandboxed
-          window.open(pdfUrl, '_blank');
-          return;
-        }
-
-        // Clean up only after printing finishes
-        const cleanup = () => {
-          w.removeEventListener('afterprint', cleanup);
-          // Small delay so browsers finish closing the dialog
-          setTimeout(() => iframe.remove(), 100);
-        };
-
-        w.addEventListener('afterprint', cleanup);
-
-        try {
-          w.focus();
-          w.print();
-        } catch {
-          // If auto-print is blocked, just open the PDF
-          window.open(pdfUrl, '_blank');
-        }
-
-        // Safety fallback: if no print dialog within ~8s, open in new tab
-        setTimeout(() => {
-          if (document.body.contains(iframe)) {
-            window.open(pdfUrl, '_blank');
-            iframe.remove();
-          }
-        }, 8000);
-      };
-
-      document.body.appendChild(iframe);
+      // Minimal viewer with a persistent print bar
+      w.document.write(`<!doctype html>
+<html><head><meta charset="utf-8"><title>Print CV</title>
+<style>
+  html,body{height:100%;margin:0}
+  iframe{width:100%;height:100%;border:0}
+  .bar{
+    position:fixed;left:0;right:0;bottom:0;
+    padding:8px 12px;background:#111;color:#fff;
+    font:14px/1.2 system-ui, -apple-system, Segoe UI, Roboto;
+    display:flex;gap:10px;align-items:center
+  }
+  .bar button{padding:6px 10px;border:0;border-radius:6px;cursor:pointer}
+  @media print {.bar{display:none}}
+</style></head>
+<body>
+  <iframe id="cvframe" src="${pdfUrl}" title="CV PDF"></iframe>
+  <div class="bar">
+    <button onclick="window.print()">Print now</button>
+    <span>If the dialog didn’t open, use ⌘P / Ctrl+P.</span>
+  </div>
+  <script>
+    const f = document.getElementById('cvframe');
+    let tried = false;
+    function tryPrint(){
+      if(tried) return; tried = true;
+      setTimeout(()=>{ window.focus(); window.print(); }, 700);
+    }
+    // Try after the PDF viewer signals ready…
+    f.addEventListener('load', tryPrint);
+    // …and also after a short timeout (some PDF viewers don't emit load reliably)
+    setTimeout(tryPrint, 2000);
+  <\/script>
+</body></html>`);
     });
     document.getElementById('genOG')?.addEventListener('click', ()=>{
       const c=document.createElement('canvas'); c.width=1200; c.height=630; const ctx=c.getContext('2d');
