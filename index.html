@@ -97,6 +97,7 @@
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#experience">Experience</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#talks">Talks</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#awards">Awards</a></li>
+            <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#extracurricular">Extracurricular</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#skills">Skills</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#journey">Journey</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#contact">Contact</a></li>
@@ -171,7 +172,6 @@
             </p>
             <div class="mt-3 flex flex-wrap gap-3 text-xs">
               <a class="underline" href="https://doi.org/10.20944/preprints202410.0649.v1" target="_blank">Preprint</a>
-              <a class="underline" href="#">Code</a>
             </div>
           </article>
           
@@ -257,6 +257,12 @@
       <section id="awards" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0 py-12 scroll-mt-24">
         <h2 class="text-2xl font-semibold tracking-tight">Awards & Scholarships</h2>
         <ul id="awardList" class="mt-6 grid gap-4 sm:grid-cols-2"></ul>
+      </section>
+
+      <!-- ===== Extracurricular Activities ===== -->
+      <section id="extracurricular" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0 py-12 scroll-mt-24">
+        <h2 class="text-2xl font-semibold tracking-tight">Extracurricular Activities</h2>
+        <ul id="extraList" class="mt-6 grid gap-4 sm:grid-cols-2"></ul>
       </section>
 
       <!-- ===== Skills (data-driven) ===== -->
@@ -393,53 +399,78 @@
     // Experience: newest first
     const EXPERIENCE = [
       {
-        org: "MESEC Collaboration",
-        role: "Research Collaborator",
-        years: "2024–2025",
+        org: "MESEC — Mediterranean Society for Consciousness Science",
+        role: "Research Collaborator (with Prof. Guillaume Dumas)",
+        years: "08/2024–Present",
         bullets: [
-          "Statistical complexity & temporal asymmetry in neural time series.",
-          "Compared SC vs. LZc across simulated and iEEG datasets.",
-          "Built ε-machine pipelines; prepared figures & slides."
+          "Exploring how social interactions shape consciousness via Neuro-AI models.",
+          "Computational modeling & hyperscanning to study inter-brain dynamics."
         ],
-        tags: ["Python","NumPy","Info Theory"]
+        tags: ["Python","Info Theory","Neuro-AI"]
       },
       {
-        org: "University of Sussex",
-        role: "Research Assistant",
-        years: "2023–2024",
+        org: "Sussex Centre for Consciousness Science, University of Sussex",
+        role: "Research Assistant (with Dr. Adam B. Barrett)",
+        years: "04/2024–09/2024",
         bullets: [
-          "Complexity measures in consciousness research; EEG/MEG pipelines.",
-          "Implemented LZc & multiscale entropy baselines."
+          "Compared Statistical Complexity and Lempel–Ziv on iEEG across wake/sleep/psychedelics.",
+          "Built analysis pipelines; contributed figures and presentation materials."
         ],
-        tags: ["MNE","SciPy","JAX/PyTorch"]
+        tags: ["EEG/iEEG","Complexity","Signal Processing", "Consciousness"]
       },
       {
-        org: "Lab Assistant — Robotics / Controls",
-        role: "Teaching/Lab Assistant",
-        years: "2022",
-        bullets: ["Demos & materials for control systems; student project support."],
-        tags: ["MATLAB","Control Theory","Embedded"]
+        org: "Chichester I Lab, University of Sussex",
+        role: "Lab Assistant (Robotics)",
+        years: "10/2023–01/2024",
+        bullets: [
+          "CTRNN-based adaptive control; synaptic scaling experiments in CoppeliaSim."
+        ],
+        tags: ["CTRNN","Adaptive Control","robotic modelling", "Homeostatic plasticity"]
       },
       {
         org: "Outlier AI",
-        role: "Data/Model Annotator (LLMs)",
-        years: "2022–2023",
-        bullets: ["Generated & reviewed complex prompts/annotations for LLMs."],
-        tags: ["NLP","Prompting","Evaluation"]
+        role: "AI Math Trainer (Remote)",
+        years: "09/2024–Present",
+        bullets: [
+          "Design and evaluate advanced math prompts; assess model solutions for correctness."
+        ],
+        tags: ["LLMs","Evaluation","Mathematics"]
       },
       {
-        org: "UBA Group",
-        role: "Technology Intern",
-        years: "2021",
-        bullets: ["Internal tooling, dashboards, QA in a financial environment."],
-        tags: ["SQL","Dashboards","QA"]
+        org: "Ahmadu Bello University",
+        role: "Teaching Assistant",
+        years: "2012–2014",
+        bullets: [
+          "Led tutorials in Mathematics, CAD (SolidWorks/AutoCAD), and MATLAB/JavaScript."
+        ],
+        tags: ["Tutorial","CAD","MATLAB", "Mathematics"]
       }
     ];
 
     // Talks (examples; tweak as needed)
     const TALKS = [
-      { title: "Statistical Complexity distinguishes different states of consciousness", venue: "MPS Cog Welcome Days", year: 2025, type: "Poster", link: "#" },
-      { title: "Symbolic dynamics for neural time series", venue: "Workshop", year: 2024, type: "Talk", link: "#" }
+      {
+        title: "Statistical Physics of Cognition Workshop",
+        venue: "Institute of Physics, London, UK",
+        year: 2024,
+        type: "Poster",
+        link: ""
+      },
+      {
+        title: "SCCS New Lab Launch",
+        venue: "Sussex Centre for Consciousness Science, University of Sussex",
+        year: 2024,
+        type: "Poster",
+        link: ""
+      },
+      {
+        title: "MESEC Workshop 2024 (Chaired by Prof. Thomas Metzinger)",
+        venue: "Corsica, France",
+        year: 2024,
+        type: "Talk",
+        link: ""
+      },
+      { title: "Statistical Complexity distinguishes different states of consciousness", venue: "Harnack Haus, Berlin Germany", year: 2025, type: "Talk", link: "#" },
     ];
 
     // Awards & Scholarships
@@ -450,12 +481,100 @@
 
     // Skills Matrix
     const SKILLS = [
-      { group: "Programming", items: ["Python","Julia","MATLAB","SQL"] },
-      { group: "ML / DL", items: ["PyTorch","JAX","TensorFlow","Scikit-learn"] },
-      { group: "Neuro / Signals", items: ["MNE","EEG/MEG","Time-series","Symbolic dynamics"] },
-      { group: "Theory", items: ["Information theory","Statistical complexity","RL","Control"] },
-      { group: "Data / Tools", items: ["NumPy","Pandas","SciPy","Matplotlib"] },
-      { group: "Other", items: ["Scientific writing","Presenting","Reproducibility"] }
+      { 
+        group: "Programming Languages & Frameworks", 
+        items: [
+          "Python (advanced)",
+          "Julia (intermediate)",
+          "MATLAB (intermediate)",
+          "JavaScript (intermediate)",
+          "R (basic)",
+          "Lua (basic)",
+          "JAX",
+          "TensorFlow",
+          "PyTorch",
+          "Keras",
+          "scikit-learn",
+          "DEAP"
+        ] 
+      },
+      { 
+        group: "Data Analysis", 
+        items: [
+          "Time Series Analysis (EEG/MEG)",
+          "Data Compression (Lempel-Ziv)",
+          "Feature Extraction",
+          "Connectivity Analysis (Granger Causality)",
+          "Dimensionality Reduction (PCA)"
+        ] 
+      },
+      { 
+        group: "Machine Learning", 
+        items: [
+          "Natural Language Processing",
+          "Ensemble Learning",
+          "Deep Learning",
+          "Support Vector Machines",
+          "Model Optimisation",
+          "Distributed Training (GPU)"
+        ] 
+      },
+      { 
+        group: "Robotics & Autonomous Systems", 
+        items: [
+          "Dynamical Systems",
+          "Adaptive Control Algorithms",
+          "Evolutionary Algorithms",
+          "Sensorimotor Integration",
+          "Reinforcement Learning",
+          "Autonomous Navigation"
+        ] 
+      },
+      { 
+        group: "Software & Tools", 
+        items: [
+          "Git (Version Control)",
+          "Webots",
+          "CoppeliaSim",
+          "Pygame",
+          "AutoCAD",
+          "SolidWorks",
+          "Adobe Creative Suite",
+          "MS Office",
+          "SQL",
+          "Excel",
+          "R (basic)",
+          "MS Power BI"
+        ] 
+      },
+      { 
+        group: "Research Techniques", 
+        items: [
+          "Literature Search",
+          "Experimental Design",
+          "Data Collection",
+          "Statistical Analysis",
+          "Hypothesis Testing",
+          "Scientific Writing",
+          "Public Presentation",
+          "Manuscript Preparation",
+          "Cross-Disciplinary Teamwork"
+        ] 
+      },
+      { 
+        group: "Languages", 
+        items: [
+          "English (Fluent)",
+          "Igede (Native)",
+          "Hausa (Basic)"
+        ] 
+      }
+    ];
+
+    // Extracurricular Activities
+    const EXTRACURRICULAR = [
+      { name: "Member, Mediterranean Society for Consciousness Science (MESEC)", years: "2024–Present", place: "Corsica, France" },
+      { name: "Founding Member, Consciousness Society Sussex", years: "2024–Present", place: "University of Sussex, Brighton, UK" }
     ];
 
     /* ----------------------- THEME / BASICS ----------------------- */
@@ -748,6 +867,9 @@
     });
     document.getElementById('clearLocal')?.addEventListener('click', ()=>{ localStorage.removeItem(LS_KEY); renderPubs(); });
 
+    // Fallback: repo loader is optional
+    async function loadRepoPubs(){ return []; }
+
     // Init pubs with repo + local merges
     (async ()=>{
       const repo = await loadRepoPubs();
@@ -782,10 +904,11 @@
 
     /* ----------------------- TALKS RENDER ----------------------- */
     function renderTalks(){
-      const ul = document.getElementById('talkList'); ul.innerHTML='';
+      const ul = document.getElementById('talkList'); 
+      ul.innerHTML = '';
       TALKS.sort((a,b)=>(b.year||0)-(a.year||0)).forEach(t=>{
-        const li=document.createElement('li');
-        li.className='rounded-2xl border border-ink-200 dark:border-ink-700 p-5';
+        const li = document.createElement('li');
+        li.className = 'rounded-2xl border border-ink-200 dark:border-ink-700 p-5';
         li.innerHTML = `
           <div class="flex flex-wrap items-baseline justify-between gap-2">
             <h4 class="font-medium">${t.title}</h4>
@@ -879,6 +1002,23 @@
     sidebar?.querySelectorAll('a[href^="#"], a[href^="http"]').forEach(a=>{
       a.addEventListener('click', () => { if (window.innerWidth < 1024) setNav(false); });
     });
+
+    /* ----------------------- EXTRACURRICULAR RENDER ----------------------- */
+    function renderExtracurricular(){
+      const ul = document.getElementById('extraList');
+      if (!ul) return;
+      ul.innerHTML = '';
+      EXTRACURRICULAR.forEach(e=>{
+        const li = document.createElement('li');
+        li.className = 'rounded-2xl border border-ink-200 dark:border-ink-700 p-5';
+        li.innerHTML = `
+          <h4 class="font-medium">${e.name}</h4>
+          <p class="mt-1 text-sm text-ink-600 dark:text-ink-300">${e.place}${e.years ? ' · ' + e.years : ''}</p>
+        `;
+        ul.appendChild(li);
+      });
+    }
+    renderExtracurricular();
   </script>
 </body>
 </html>
