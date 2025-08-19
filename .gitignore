@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+
+# Node/Tailwind build cache (if you ever use a build step)
+node_modules/
+dist/
