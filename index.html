@@ -597,7 +597,33 @@
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    document.getElementById('printCV')?.addEventListener('click', ()=>{ location.hash = '#cv'; setTimeout(()=>window.print(), 50); });
+    // Print the official PDF instead of the web page
+    document.getElementById('printCV')?.addEventListener('click', ()=>{
+      const pdfUrl = 'Samson_Odan_CV.pdf'; // keep this path the same as your Download link
+      // Create a hidden iframe to load the PDF and trigger print
+      const iframe = document.createElement('iframe');
+      iframe.style.position = 'fixed';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = '0';
+      iframe.src = pdfUrl;
+
+      iframe.onload = () => {
+        try {
+          iframe.contentWindow?.focus();
+          iframe.contentWindow?.print();
+        } catch (e) {
+          // Fallback: open in a new tab if auto-print is blocked
+          window.open(pdfUrl, '_blank')?.focus();
+        } finally {
+          setTimeout(()=>iframe.remove(), 1500);
+        }
+      };
+
+      document.body.appendChild(iframe);
+    });
     document.getElementById('genOG')?.addEventListener('click', ()=>{
       const c=document.createElement('canvas'); c.width=1200; c.height=630; const ctx=c.getContext('2d');
       const g=ctx.createLinearGradient(0,0,1200,630); g.addColorStop(0,'#0f1226'); g.addColorStop(1,'#393c4f'); ctx.fillStyle=g; ctx.fillRect(0,0,1200,630);
