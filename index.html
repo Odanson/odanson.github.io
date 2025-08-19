@@ -476,7 +476,7 @@
     // Awards & Scholarships
     const AWARDS = [
       { name: "Sussex Nigeria Scholarship", issuer: "University of Sussex", year: 2023 },
-      { name: "Innovative Young Engineers Award", issuer: "—", year: 2014 }
+      { name: "Sussex Engineering and Informatics Masters Award", issuer: "School of Engineering and Informatics, University of Sussex", year: 2014 }
     ];
 
     // Skills Matrix
@@ -582,7 +582,13 @@
     function applyTheme(t){ t==='dark'? root.classList.add('dark') : root.classList.remove('dark'); localStorage.setItem('theme', t); }
     const savedTheme = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     applyTheme(savedTheme);
-    document.getElementById('themeToggle')?.addEventListener('click', ()=>{ const next = root.classList.contains('dark') ? 'light' : 'dark'; applyTheme(next); });
+    document.getElementById('themeToggle')?.addEventListener('click', ()=>{
+      const isDark = root.classList.contains('dark');
+      const next = isDark ? 'light' : 'dark';
+      applyTheme(next);
+      const btn = document.getElementById('themeToggle');
+      if (btn) btn.setAttribute('aria-pressed', String(next === 'dark'));
+    });
 
     function setEmail(el){ const u=el.dataset.user, d=el.dataset.domain, t=el.dataset.tld; const addr=`${u}@${d}.${t}`; el.textContent=addr; el.href=`mailto:${addr}`; }
     document.getElementById('emailReveal')?.addEventListener('click', (e)=>{ e.preventDefault(); setEmail(e.currentTarget); });
@@ -867,7 +873,7 @@
     });
     document.getElementById('clearLocal')?.addEventListener('click', ()=>{ localStorage.removeItem(LS_KEY); renderPubs(); });
 
-    // Fallback: repo loader is optional
+    // Optional repo loader (no-op for now)
     async function loadRepoPubs(){ return []; }
 
     // Init pubs with repo + local merges
