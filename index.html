@@ -120,9 +120,9 @@
             Generate social image
           </button>
 
-          <a href="Samson_Odan_CV.pdf"
+          <a href="Samson_Odan_CV.pdf" target="_blank" rel="noopener"
              class="col-span-2 text-center rounded-xl border border-ink-200 dark:border-ink-700 px-3 py-1.5 text-xs">
-            Download CV
+            Download
           </a>
         </div>
       </div>
@@ -341,7 +341,6 @@
   </div>
 
   <style>
-    .chip{ @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700; }
     .linkish{ @apply underline decoration-indigo-500/40 hover:decoration-indigo-500; }
     .drop-active{ @apply border-indigo-400 dark:border-indigo-500 bg-indigo-50/40 dark:bg-ink-900/20; }
   </style>
@@ -406,7 +405,7 @@
           "Exploring how social interactions shape consciousness via Neuro-AI models.",
           "Computational modeling & hyperscanning to study inter-brain dynamics."
         ],
-        tags: ["Python","Info Theory","Neuro-AI"]
+        tags: ["Python","Information Theory","Neuro-AI"]
       },
       {
         org: "Sussex Centre for Consciousness Science, University of Sussex",
@@ -736,20 +735,13 @@
       return (authors || []).map(toSurnameInitial).join(', ');
     }
 
-    function linkBadge(label, href){ if(!href) return ''; return `<a href="${href}" target="_blank" rel="noopener" class="chip">${label}</a>`; }
-    function buildLinks(p){
-      const out = [];
-      if (p.doi) out.push(linkBadge('DOI', `https://doi.org/${p.doi.replace(/^https?:\/\/doi.org\//,'')}`));
-      if (p.arxiv) out.push(linkBadge('arXiv', `https://arxiv.org/abs/${p.arxiv}`));
-      if (p.pdf) out.push(linkBadge('PDF', p.pdf));
-      if (p.code) out.push(linkBadge('Code', p.code));
-      return out.join('');
+    function linkBadge(label, href){
+      if(!href) return '';
+      return `<a href="${href}" target="_blank" rel="noopener"
+    class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs
+           text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700">${label}</a>`;
     }
-    function inferType(p){
-      if ((p.venue||'').toLowerCase().includes('arxiv') || p.arxiv) return 'preprint';
-      if ((p.venue||'').toLowerCase().match(/conf|conference|proceedings|neurips|iclr|icml|ccn/)) return 'conference';
-      return 'journal';
-    }
+
     function card(p){
       const t = p.type || inferType(p);
       const typeColor = {
@@ -768,9 +760,16 @@
           <button class="copy-bib px-2 py-1 text-xs rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800" data-bib='${encodeURIComponent(p.bibtex||"")}' title="Copy BibTeX">Copy</button>
         </div>
         <div class="mt-3 flex flex-wrap gap-2">
-          <span class="chip">${t[0].toUpperCase()+t.slice(1)}</span>
+          <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs
+                   text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700">
+        ${t[0].toUpperCase()+t.slice(1)}
+      </span>
           ${buildLinks(p)}
-          ${p.selected ? '<span class="chip">Selected</span>' : ''}
+          ${p.selected ? `
+      <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs
+                   text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700">
+        Selected
+      </span>` : ''}
         </div>
       </article>`;
     }
