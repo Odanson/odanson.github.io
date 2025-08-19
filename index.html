@@ -618,9 +618,10 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Print the official PDF instead of the web page
-    document.getElementById('printCV')?.addEventListener('click', ()=>{
-      const pdfUrl = 'Samson_Odan_CV.pdf'; // keep this path the same as your Download link
-      // Create a hidden iframe to load the PDF and trigger print
+    document.getElementById('printCV')?.addEventListener('click', () => {
+      const pdfUrl = 'Samson_Odan_CV.pdf';
+
+      // Create hidden iframe
       const iframe = document.createElement('iframe');
       iframe.style.position = 'fixed';
       iframe.style.right = '0';
@@ -631,15 +632,37 @@
       iframe.src = pdfUrl;
 
       iframe.onload = () => {
-        try {
-          iframe.contentWindow?.focus();
-          iframe.contentWindow?.print();
-        } catch (e) {
-          // Fallback: open in a new tab if auto-print is blocked
-          window.open(pdfUrl, '_blank')?.focus();
-        } finally {
-          setTimeout(()=>iframe.remove(), 1500);
+        const w = iframe.contentWindow;
+        if (!w) {
+          // Fallback if iframe is sandboxed
+          window.open(pdfUrl, '_blank');
+          return;
         }
+
+        // Clean up only after printing finishes
+        const cleanup = () => {
+          w.removeEventListener('afterprint', cleanup);
+          // Small delay so browsers finish closing the dialog
+          setTimeout(() => iframe.remove(), 100);
+        };
+
+        w.addEventListener('afterprint', cleanup);
+
+        try {
+          w.focus();
+          w.print();
+        } catch {
+          // If auto-print is blocked, just open the PDF
+          window.open(pdfUrl, '_blank');
+        }
+
+        // Safety fallback: if no print dialog within ~8s, open in new tab
+        setTimeout(() => {
+          if (document.body.contains(iframe)) {
+            window.open(pdfUrl, '_blank');
+            iframe.remove();
+          }
+        }, 8000);
       };
 
       document.body.appendChild(iframe);
