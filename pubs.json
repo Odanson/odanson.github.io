@@ -65,19 +65,4 @@
     "selected": false,
     "bibtex": "@article{article,\r\nauthor = {Atmanspacher, Harald},\r\nyear = {2016},\r\nmonth = {11},\r\npages = {426},\r\ntitle = {On Macrostates in Complex Multi-Scale Systems},\r\nvolume = {18},\r\njournal = {Entropy},\r\ndoi = {10.3390/e18120426}\r\n}"
   }
-][
-  {
-    "id": "odan2025-paper",
-    "type": "journal",
-    "year": 2025,
-    "title": "Title here",
-    "authors": ["Odan, Samson", "Coauthor, A."],
-    "venue": "Journal Name",
-    "doi": "10.xxxx/xxxxx",
-    "arxiv": null,
-    "pdf": "https://doi.org/10.xxxx/xxxxx",
-    "code": null,
-    "selected": true,
-    "bibtex": "@article{...}"
-  }
 ]
