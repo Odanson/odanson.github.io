@@ -417,6 +417,9 @@
       }
     ];
 
+    // Keep an immutable snapshot of your built‑ins at boot
+    const DEFAULT_PUBS = JSON.parse(JSON.stringify(PUBS));
+
     // Experience: newest first
     const EXPERIENCE = [
       {
@@ -972,7 +975,13 @@
       URL.revokeObjectURL(a.href);
       a.remove();
     });
-    document.getElementById('clearLocal')?.addEventListener('click', ()=>{ localStorage.removeItem(LS_KEY); renderPubs(); });
+    // Replace "clear local" with a full reset to defaults + file pubs (no reload needed)
+    document.getElementById('clearLocal')?.addEventListener('click', async () => {
+      localStorage.removeItem(LS_KEY);
+      const filePubs = await loadFromFile();         // pulls pubs.json (if present)
+      PUBS = dedupe([ ...DEFAULT_PUBS, ...filePubs ]); // drop any imported locals
+      renderPubs();
+    });
 
     // Optional repo loader (no-op for now)
     async function loadRepoPubs(){ return []; }
