@@ -256,7 +256,7 @@
               <button data-filter="conference" class="pub-filter px-2.5 py-1 text-xs rounded-full border border-gray-300 dark:border-gray-700">Conferences</button>
             </div>
 
-            <div id="bibDrop" class="mt-6 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 p-4 text-sm text-gray-600 dark:text-gray-400">
+            <div id="bibDrop" class="hidden mt-6 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 p-4 text-sm text-gray-600 dark:text-gray-400">
               <p class="font-medium text-gray-800 dark:text-gray-100">Drag & drop .bib here</p>
               <p class="mt-1">…or <label class="linkish cursor-pointer">choose file<input id="bibFile" type="file" accept=".bib" class="hidden"></label></p>
               <p class="mt-2 text-xs">We read <code>title</code>, <code>author</code>, <code>year</code>, <code>journal</code>/<code>booktitle</code>, <code>doi</code>, <code>eprint</code>, <code>url</code>. Add <code>keywords = {selected}</code> to mark Selected Works.</p>
@@ -900,8 +900,14 @@
       location.hostname === '127.0.0.1' ||
       location.hostname.endsWith('.local') ||
       location.search.includes('admin');
-    // On production without ?admin, remove the UI
-    if (!IMPORT_ENABLED) { drop?.remove(); }
+    // Only show the UI when enabled; otherwise remove it entirely
+    if (drop) {
+      if (IMPORT_ENABLED) {
+        drop.classList.remove('hidden');
+      } else {
+        drop.remove();
+      }
+    }
     function parseBibTex(text){
       const entries = [];
       const raw = text.split(/\n@/).map((s,i)=> i===0 ? s : '@'+s).filter(s=>/@\w+\s*\{/.test(s));
