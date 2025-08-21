@@ -1,51 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>My Website</title>
-  <style>
-    /* Styles omitted for brevity */
-  </style>
-</head>
-<body>
-  <!-- Content omitted for brevity -->
-
-  <script>
-    // Other script content omitted for brevity
-
-    // BibTeX drag-and-drop setup
-    const drop = document.getElementById('bibDrop');
-    const fileInput = document.getElementById('bibFile');
-
-    // Enable imports locally (localhost/127.0.0.1/.local) or when ?admin is present
-    const IMPORT_ENABLED =
-      location.hostname === 'localhost' ||
-      location.hostname === '127.0.0.1' ||
-      location.hostname.endsWith('.local') ||
-      location.search.includes('admin');
-    // On production without ?admin, remove the UI
-    if (!IMPORT_ENABLED) { drop?.remove(); }
-
-    if (IMPORT_ENABLED && drop) {
-      ['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => {
-        e.preventDefault(); e.stopPropagation(); drop.classList.add('drop-active');
-      }));
-      ['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => {
-        e.preventDefault(); e.stopPropagation(); drop.classList.remove('drop-active');
-      }));
-      drop.addEventListener('drop', e => {
-        const f = e.dataTransfer.files?.[0]; if (!f) return;
-        const reader = new FileReader(); reader.onload = ev => handleBibText(ev.target.result); reader.readAsText(f);
-      });
-    }
-    if (IMPORT_ENABLED && fileInput) {
-      fileInput.addEventListener('change', e => {
-        const f = e.target.files?.[0]; if (!f) return;
-        const reader = new FileReader(); reader.onload = ev => handleBibText(ev.target.result); reader.readAsText(f);
-      });
-    }
-
-    // Other script content omitted for brevity
-  </script>
-</body>
-</html>
+[
+  {
+    "id": "odan2024-complexity",
+    "type": "preprint",
+    "year": 2024,
+    "title": "Complexity Measures in Diverse Dynamical Regimes and Their Application to States of Consciousness",
+    "authors": [
+      "Odan, Samson",
+      "Barrett, Adam B. (Supervisor)"
+    ],
+    "venue": "Mathematical and Computational Biology (Preprints.org)",
+    "doi": "10.20944/preprints202410.0649.v1",
+    "arxiv": null,
+    "pdf": "https://doi.org/10.20944/preprints202410.0649.v1",
+    "code": null,
+    "selected": true,
+    "bibtex": "@article{odan2024complexity,\n  title={Complexity Measures in Diverse Dynamical Regimes and Their Application to States of Consciousness},\n  author={Odan, Samson and Barrett, Adam B.},\n  year={2024},\n  journal={Mathematical and Computational Biology},\n  doi={10.20944/preprints202410.0649.v1}\n}"
+  },
+  {
+    "id": "odan2024-metaheuristic",
+    "type": "preprint",
+    "year": 2024,
+    "title": "Metaheuristic Method for Solving Systems of Equations",
+    "authors": [
+      "Odan, Samson"
+    ],
+    "venue": "Neural and Evolutionary Computing (cs.NE)",
+    "doi": "10.48550/arXiv.2409.16958",
+    "arxiv": "2409.16958",
+    "pdf": "https://arxiv.org/abs/2409.16958",
+    "code": null,
+    "selected": true,
+    "bibtex": "@misc{odan2024metaheuristic,\n  title={Metaheuristic Method for Solving Systems of Equations},\n  author={Samson Odan},\n  year={2024},\n  eprint={2409.16958},\n  archivePrefix={arXiv},\n  primaryClass={cs.NE},\n  doi={10.48550/arXiv.2409.16958},\n  url={https://arxiv.org/abs/2409.16958}\n}"
+  },
+  {
+    "id": "article",
+    "type": "journal",
+    "year": 2011,
+    "title": "Practical Measures of Integrated Information for Time-Series Data",
+    "authors": [
+      "Barrett, Adam",
+      "Seth, Anil"
+    ],
+    "venue": "PLoS computational biology",
+    "arxiv": null,
+    "doi": "10.1371/journal.pcbi.1001052",
+    "pdf": null,
+    "code": null,
+    "selected": false,
+    "bibtex": "@article{article,\r\nauthor = {Barrett, Adam and Seth, Anil},\r\nyear = {2011},\r\nmonth = {01},\r\npages = {e1001052},\r\ntitle = {Practical Measures of Integrated Information for Time-Series Data},\r\nvolume = {7},\r\njournal = {PLoS computational biology},\r\ndoi = {10.1371/journal.pcbi.1001052}\r\n}"
+  },
+  {
+    "id": "article",
+    "type": "journal",
+    "year": 2016,
+    "title": "On Macrostates in Complex Multi-Scale Systems",
+    "authors": [
+      "Atmanspacher, Harald"
+    ],
+    "venue": "Entropy",
+    "arxiv": null,
+    "doi": "10.3390/e18120426",
+    "pdf": null,
+    "code": null,
+    "selected": false,
+    "bibtex": "@article{article,\r\nauthor = {Atmanspacher, Harald},\r\nyear = {2016},\r\nmonth = {11},\r\npages = {426},\r\ntitle = {On Macrostates in Complex Multi-Scale Systems},\r\nvolume = {18},\r\njournal = {Entropy},\r\ndoi = {10.3390/e18120426}\r\n}"
+  }
+]
