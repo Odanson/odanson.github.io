@@ -312,7 +312,7 @@
         <div class="mt-6 rounded-2xl border border-ink-200 dark:border-ink-700 p-6 print:shadow-none">
           <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div>
-              <h4 class="text-xl font-semibold">Samson Odan</h4>
+              <h4 class="text-2xl font-semibold">Samson Odan</h4>
               <p class="text-sm text-ink-600 dark:text-ink-300">PhD Candidate · Max Planck School of Cognition · MPI MiS</p>
             </div>
             <div class="text-sm text-ink-600 dark:text-ink-300">
@@ -323,25 +323,21 @@
             </div>
           </header>
 
-          <div class="mt-6 grid md:grid-cols-3 gap-6">
-            <section class="md:col-span-2">
-              <h5 class="font-medium">Education</h5>
+          <div class="mt-6">
+            <section>
+              <h5 class="text-lg font-semibold">Education</h5>
               <ul class="mt-3 space-y-2 text-sm">
                 <li><strong>MSc</strong> — University of Sussex — 2023–2024</li>
                 <li><strong>B.Eng</strong> — Ahmadu Bello University — 2009–2014</li>
               </ul>
-              <h5 class="mt-6 font-medium">Experience</h5>
-              <ul id="cvExp" class="mt-3 space-y-2 text-sm"></ul>
-            </section>
-            <section>
-              <h5 class="font-medium">Selected Skills</h5>
-              <ul id="cvSkills" class="mt-3 text-sm list-disc ms-5"></ul>
+              <h5 class="mt-6 text-lg font-semibold">Experience</h5>
+              <ul id="cvExp" class="mt-3 space-y-4 text-sm"></ul>
             </section>
           </div>
 
           <section class="mt-6">
-            <h5 class="font-medium">Selected Publications</h5>
-            <ul id="cvPubs" class="mt-3 space-y-2 text-sm"></ul>
+            <h5 class="text-lg font-semibold">Selected Publications</h5>
+            <ul id="cvPubs" class="mt-3 space-y-4 text-sm"></ul>
           </section>
         </div>
       </section>
@@ -1083,10 +1079,13 @@
         grid.appendChild(card);
       });
 
-      // CV skills (just first 6-8 items flattened)
-      const cv = document.getElementById('cvSkills'); cv.innerHTML='';
-      const flat = SKILLS.flatMap(s=>s.items).slice(0,8);
-      flat.forEach(it=>{ const li=document.createElement('li'); li.textContent=it; cv.appendChild(li); });
+      // CV skills removed in compact CV layout
+      const cv = document.getElementById('cvSkills');
+      if (cv) {
+        cv.innerHTML='';
+        const flat = SKILLS.flatMap(s=>s.items).slice(0,8);
+        flat.forEach(it=>{ const li=document.createElement('li'); li.textContent=it; cv.appendChild(li); });
+      }
     }
     renderSkills();
 
