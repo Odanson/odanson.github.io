@@ -1,0 +1,54 @@
+MANUAL EDITS FOR PUBLICATIONS
+
+Where publications come from:
+1) Built-ins: inside index.html (let PUBS = [...]).
+2) File: pubs.json at the repo root (optional).
+3) Browser localStorage: added via the admin importer (?admin).
+
+At runtime, the site merges and de-duplicates all three.
+
+ADD an item (file-based)
+------------------------
+1) Create or edit pubs.json in the repo root.
+2) Append an object with fields like:
+   {
+     "id": "unique-key-2025",
+     "type": "preprint" | "journal" | "conference",   // optional; inferred if missing
+     "year": 2025,
+     "title": "Your Title",
+     "authors": ["Surname, First", "Coauthor, A."],
+     "venue": "Journal / Conference / arXiv",
+     "doi": "10.xxxx/xxxxx",            // optional
+     "arxiv": "2501.xxxxx",             // optional
+     "pdf": "https://.../paper.pdf",    // optional
+     "code": "https://github.com/...",  // optional
+     "selected": true                   // optional (shows in 'Selected Works')
+   }
+3) Save, commit, push. Refresh the site.
+
+DELETE an item (file-based)
+---------------------------
+1) Open pubs.json.
+2) Remove the object for that entry.
+3) Save, commit, push. Refresh.
+
+Notes
+-----
+- De-duplication prefers entries with more fields (DOI/arXiv/pdf/code/venue/authors/bibtex).
+- If an item exists both in built-ins and pubs.json, the more complete one wins.
+- To avoid clashes, keep "id" unique. If you have a DOI or arXiv id, those are used as stable keys.
+- Filtering: type is inferred if missing (preprint if arXiv/preprint detected; otherwise journal or conference).
+- Mark "selected": add "selected": true to show under “Selected Works.”
+
+Admin-only importer (local use)
+-------------------------------
+- Visit the site with ?admin (e.g., http://localhost:3000/?admin).
+- Drag & drop a .bib file; entries will be parsed and stored in localStorage.
+- Use "Export pubs.json" to download the merged list and commit it to the repo.
+- "Clear local" resets localStorage to defaults + pubs.json.
+
+Troubleshooting
+---------------
+- Not seeing changes? Do a hard refresh (Cmd/Ctrl+Shift+R).
+- Check the browser console for JSON errors (e.g., missing commas/braces).
+- Validate JSON with an online formatter if needed.
