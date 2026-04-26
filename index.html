@@ -188,51 +188,37 @@
 
         <div class="mt-6 grid gap-4 sm:grid-cols-2">
           <a href="#publications" class="rounded-2xl border border-ink-200 dark:border-ink-700 p-4 hover:bg-ink-50 dark:hover:bg-ink-800">View publications</a>
-          <a href="#highlights" class="rounded-2xl border border-ink-200 dark:border-ink-700 p-4 hover:bg-ink-50 dark:hover:bg-ink-800">Current projects</a>
+          <a href="#highlights" class="rounded-2xl border border-ink-200 dark:border-ink-700 p-4 hover:bg-ink-50 dark:hover:bg-ink-800">Current projects (2 active)</a>
         </div>
       </section>
 
-      <!-- Highlights Grid -->
+      <!-- Current Projects -->
       <section id="highlights" class="mt-16">
         <div class="flex items-end justify-between">
-          <h3 class="text-2xl font-semibold tracking-tight">Research Highlights</h3>
-          <div class="text-sm"><a class="underline" href="#publications">See all →</a></div>
+          <h3 class="text-2xl font-semibold tracking-tight">Current Projects</h3>
+          <div class="text-sm"><a class="underline" href="#publications">Previous projects in Publications →</a></div>
         </div>
-        <div class="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          
-          <!-- Neural Complexity -->
+        <p class="mt-2 text-sm text-ink-600 dark:text-ink-300">
+          Ongoing research projects. Completed work is listed under Publications.
+        </p>
+        <div class="mt-6 grid gap-6 md:grid-cols-2">
           <article class="group rounded-2xl border border-ink-200 dark:border-ink-700 p-5 hover:shadow-sm transition">
-            <h4 class="font-medium">Neural Complexity & States of Consciousness</h4>
+            <h4 class="font-medium">Multimodal Stabilization of Head Direction Representations in Continuous Attractor Networks</h4>
             <p class="mt-2 text-sm text-ink-600 dark:text-ink-300">
-              Investigating how statistical and information-theoretic measures (SC, LZc, ApEn, etc.) capture dynamics of
-              consciousness across sleep, wakefulness, and psychedelic states.
+              Developing continuous attractor models that fuse visual, vestibular, and proprioceptive signals to preserve stable head-direction coding under noisy and changing sensory conditions.
             </p>
             <div class="mt-3 flex flex-wrap gap-3 text-xs">
-              <a class="underline" href="https://doi.org/10.20944/preprints202410.0649.v1" target="_blank" rel="noopener noreferrer">Preprint</a>
+              <span class="chip">In progress</span>
             </div>
           </article>
-          
-          <!-- Metaheuristic Paper -->
+
           <article class="group rounded-2xl border border-ink-200 dark:border-ink-700 p-5 hover:shadow-sm transition">
-            <h4 class="font-medium">Metaheuristic Method for Solving Systems of Equations</h4>
+            <h4 class="font-medium">Comprehensive systematic methodological review of complexity measures used in consciousness research</h4>
             <p class="mt-2 text-sm text-ink-600 dark:text-ink-300">
-              Developed a novel metaheuristic approach for solving nonlinear systems of equations,
-              bridging ideas from neural computation and evolutionary search.
+              Conducting a structured methodological review of complexity metrics used in consciousness science, with emphasis on assumptions, robustness, and reproducibility across experimental paradigms.
             </p>
             <div class="mt-3 flex flex-wrap gap-3 text-xs">
-              <a class="underline" href="https://arxiv.org/abs/2409.16958" target="_blank" rel="noopener noreferrer">Preprint</a>
-            </div>
-          </article>
-          
-          <!-- Robotics Project -->
-          <article class="group rounded-2xl border border-ink-200 dark:border-ink-700 p-5 hover:shadow-sm transition">
-            <h4 class="font-medium">Synaptic Homeostasis in Robotics</h4>
-            <p class="mt-2 text-sm text-ink-600 dark:text-ink-300">
-              Applied Continuous-Time Recurrent Neural Networks (CTRNNs) with homeostatic plasticity
-              for adaptive robotic control, enabling stable navigation under changing environments.
-            </p>
-            <div class="mt-3 flex flex-wrap gap-3 text-xs">
-              <a class="underline" href="https://github.com/Odanson/Homeostatic-Plasticity-in-Robotics" target="_blank" rel="noopener noreferrer">Repo</a>
+              <span class="chip">In progress</span>
             </div>
           </article>
         </div>
@@ -273,6 +259,7 @@
               <button data-filter="preprint" class="pub-filter px-2.5 py-1 text-xs rounded-full border border-gray-300 dark:border-gray-700">Preprints</button>
               <button data-filter="journal" class="pub-filter px-2.5 py-1 text-xs rounded-full border border-gray-300 dark:border-gray-700">Journals</button>
               <button data-filter="conference" class="pub-filter px-2.5 py-1 text-xs rounded-full border border-gray-300 dark:border-gray-700">Conferences</button>
+              <button data-filter="project" class="pub-filter px-2.5 py-1 text-xs rounded-full border border-gray-300 dark:border-gray-700">Projects</button>
             </div>
 
             <div id="bibDrop" class="hidden mt-6 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 p-4 text-sm text-gray-600 dark:text-gray-400">
@@ -422,6 +409,26 @@
   primaryClass={cs.NE},
   doi={10.48550/arXiv.2409.16958},
   url={https://arxiv.org/abs/2409.16958}
+}`
+      },
+      {
+        id: "odan2024-synaptic-homeostasis-robotics",
+        type: "project",
+        year: 2024,
+        title: "Synaptic Homeostasis in Robotics",
+        authors: ["Odan, Samson"],
+        venue: "Future Technologies Labs, University of Sussex",
+        doi: null,
+        arxiv: null,
+        pdf: null,
+        code: "https://github.com/Odanson/Homeostatic-Plasticity-in-Robotics",
+        selected: true,
+        bibtex: `@misc{odan2024synaptichomeostasis,
+  title={Synaptic Homeostasis in Robotics},
+  author={Samson Odan},
+  year={2024},
+  note={Project repository},
+  url={https://github.com/Odanson/Homeostatic-Plasticity-in-Robotics}
 }`
       }
     ];
