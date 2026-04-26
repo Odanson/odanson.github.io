@@ -40,6 +40,33 @@
   <style>
     :focus-visible{outline:2px solid #6366f1;outline-offset:2px}
     @media (min-width: 1024px){ .sticky-safe{position:sticky; top:0; height:100dvh} }
+    p { line-height: 1.7; }
+
+    .section-title{
+      font-size:1.5rem; line-height:2rem; font-weight:600; letter-spacing:-0.01em;
+    }
+    @media (min-width:768px){
+      .section-title{ font-size:1.875rem; line-height:2.25rem; }
+    }
+
+    .card-surface{
+      border:1px solid rgba(148,163,184,.25);
+      background:rgba(255,255,255,.72);
+      border-radius:1rem;
+      box-shadow:0 1px 2px rgba(2,6,23,.05);
+      backdrop-filter:blur(6px);
+      transition:box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+    }
+    .card-surface:hover{
+      transform:translateY(-1px);
+      box-shadow:0 8px 20px rgba(2,6,23,.08);
+      border-color:rgba(99,102,241,.35);
+    }
+    html.dark .card-surface{
+      background:rgba(17,24,39,.55);
+      border-color:rgba(75,85,99,.55);
+      box-shadow:0 1px 2px rgba(2,6,23,.35);
+    }
 
     .chip{
       display:inline-flex;align-items:center;border-radius:9999px;
@@ -130,7 +157,7 @@
         <nav class="hidden lg:block w-full">
           <ul class="space-y-2 text-sm">
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#intro">Intro</a></li>
-            <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#highlights">Highlights</a></li>
+            <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#highlights">Current Projects</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#publications">Publications</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#experience">Experience</a></li>
             <li><a class="block px-3 py-2 rounded hover:bg-ink-50 dark:hover:bg-ink-800" href="#talks">Talks</a></li>
@@ -172,11 +199,11 @@
     <main id="content" class="px-5 sm:px-8 md:px-12 lg:px-16 xl:px-24 py-10">
       <!-- Intro / Hero -->
       <section id="intro" class="max-w-4xl">
-        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">
+        <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight">
           Complexity Science, Consciousness and Mathematical Theory of Learning.
         </h2>
 
-        <p class="mt-4 text-ink-600 dark:text-ink-300">
+        <p class="mt-5 text-[15px] md:text-base text-ink-600 dark:text-ink-300 max-w-3xl">
           I am a PhD Candidate in the <span class="font-medium">Max Planck School of Cognition</span>,
           working at the intersection of <span class="font-medium">neuroscience</span>,
           <span class="font-medium">mathematics</span>, and <span class="font-medium">artificial intelligence</span>
@@ -188,23 +215,23 @@
           <a class="font-medium underline" href="https://www.brainsinthewild.com/" target="_blank" rel="noopener noreferrer">Prof. Lucia Melloni</a>.
         </p>
 
-        <div class="mt-6 grid gap-4 sm:grid-cols-2">
-          <a href="#publications" class="rounded-2xl border border-ink-200 dark:border-ink-700 p-4 hover:bg-ink-50 dark:hover:bg-ink-800">View publications</a>
-          <a href="#highlights" class="rounded-2xl border border-ink-200 dark:border-ink-700 p-4 hover:bg-ink-50 dark:hover:bg-ink-800">Current projects (2 active)</a>
+        <div class="mt-7 grid gap-4 sm:grid-cols-2">
+          <a href="#publications" class="card-surface p-4 font-medium hover:bg-ink-50 dark:hover:bg-ink-800">View publications</a>
+          <a href="#highlights" class="card-surface p-4 font-medium hover:bg-ink-50 dark:hover:bg-ink-800">Current projects (2 active)</a>
         </div>
       </section>
 
       <!-- Current Projects -->
-      <section id="highlights" class="mt-16">
+      <section id="highlights" class="mt-20">
         <div class="flex items-end justify-between">
-          <h3 class="text-2xl font-semibold tracking-tight">Current Projects</h3>
-          <div class="text-sm"><a class="underline" href="#publications">Previous projects in Publications →</a></div>
+          <h3 class="section-title">Current Projects</h3>
+          <div class="text-xs sm:text-sm"><a class="underline" href="#publications">Previous projects in Publications →</a></div>
         </div>
         <p class="mt-2 text-sm text-ink-600 dark:text-ink-300">
           Ongoing research projects. Completed work is listed under Publications.
         </p>
         <div class="mt-6 grid gap-6 md:grid-cols-2">
-          <article class="group rounded-2xl border border-ink-200 dark:border-ink-700 p-5 sm:p-6 hover:shadow-sm transition">
+          <article class="group card-surface h-full p-5 sm:p-6">
             <h4 class="text-base md:text-lg font-medium leading-snug">Multimodal Stabilization of Head-Direction Representations</h4>
             <p class="mt-2 text-sm text-ink-600 dark:text-ink-300">
               Developing continuous attractor models that fuse visual, vestibular, and proprioceptive signals to preserve stable head-direction coding under noisy and changing sensory conditions.
@@ -214,7 +241,7 @@
             </div>
           </article>
 
-          <article class="group rounded-2xl border border-ink-200 dark:border-ink-700 p-5 sm:p-6 hover:shadow-sm transition">
+          <article class="group card-surface h-full p-5 sm:p-6">
             <h4 class="text-base md:text-lg font-medium leading-snug">Systematic Methodological Review of Complexity Measures in Consciousness Research</h4>
             <p class="mt-2 text-sm text-ink-600 dark:text-ink-300">
               Conducting a structured methodological review of complexity metrics used in consciousness science, with emphasis on assumptions, robustness, and reproducibility across experimental paradigms.
@@ -227,17 +254,17 @@
       </section>
 
       <!-- ===== Experience (data-driven) ===== -->
-      <section id="experience" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-0 py-12 scroll-mt-24">
-        <h2 class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">Experience</h2>
+      <section id="experience" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0 py-14 scroll-mt-24">
+        <h2 class="section-title text-gray-900 dark:text-gray-100">Experience</h2>
         <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Selected research and industry roles. See CV for full details.</p>
         <ol id="expTimeline" class="relative mt-8 border-l border-gray-200 dark:border-gray-700"></ol>
       </section>
 
       <!-- ===== Publications & Preprints (with .bib drag-and-drop) ===== -->
-      <section id="publications" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-0 py-12 scroll-mt-24">
+      <section id="publications" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-0 py-14 scroll-mt-24">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <aside class="lg:col-span-4">
-            <h2 class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100" style="display:inline;">
+            <h2 class="section-title text-gray-900 dark:text-gray-100" style="display:inline;">
               Publications
             </h2>
             <a id="editGitHubLink" href="https://github.com/Odanson/odanson.github.io/blob/main/pubs.json" 
@@ -248,7 +275,7 @@
             </a>
             <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Preprints, papers, and talks. “Selected Works” highlights a few key items.</p>
 
-            <div class="mt-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-gray-900/60 backdrop-blur-sm p-4">
+            <div class="mt-6 card-surface p-4">
               <div class="flex items-center justify-between">
                 <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Selected Works</h3>
                 <button id="toggleSelected" class="text-xs px-2 py-1 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">Show Only</button>
@@ -276,32 +303,32 @@
           </aside>
 
           <div class="lg:col-span-8">
-            <div id="pubList" class="space-y-4"></div>
+            <div id="pubList" class="space-y-5"></div>
           </div>
         </div>
       </section>
 
       <!-- ===== Talks (data-driven) ===== -->
-      <section id="talks" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0 py-12 scroll-mt-24">
-        <h2 class="text-2xl font-semibold tracking-tight">Conferences & Talks</h2>
+      <section id="talks" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-0 py-14 scroll-mt-24">
+        <h2 class="section-title">Conferences & Talks</h2>
         <ul id="talkList" class="mt-6 space-y-4"></ul>
       </section>
 
       <!-- ===== Awards (data-driven) ===== -->
-      <section id="awards" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0 py-12 scroll-mt-24">
-        <h2 class="text-2xl font-semibold tracking-tight">Awards & Scholarships</h2>
+      <section id="awards" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-0 py-14 scroll-mt-24">
+        <h2 class="section-title">Awards & Scholarships</h2>
         <ul id="awardList" class="mt-6 grid gap-4 sm:grid-cols-2"></ul>
       </section>
 
       <!-- ===== Extracurricular Activities ===== -->
-      <section id="extracurricular" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0 py-12 scroll-mt-24">
-        <h2 class="text-2xl font-semibold tracking-tight">Extracurricular Activities</h2>
+      <section id="extracurricular" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-0 py-14 scroll-mt-24">
+        <h2 class="section-title">Extracurricular Activities</h2>
         <ul id="extraList" class="mt-6 grid gap-4 sm:grid-cols-2"></ul>
       </section>
 
       <!-- ===== Journey (simple timeline) ===== -->
-      <section id="journey" class="mt-16">
-        <h3 class="text-2xl font-semibold tracking-tight">Academic Journey</h3>
+      <section id="journey" class="mt-20">
+        <h3 class="section-title">Academic Journey</h3>
         <ol class="mt-6 relative border-s border-ink-200 dark:border-ink-700">
           <li class="ms-6 pb-8"><span class="absolute -start-2.5 mt-1.5 h-4 w-4 rounded-full bg-ink-900 dark:bg-ink-100"></span><h4 class="font-medium">PhD — Max Planck School of Cognition — 2025–2029</h4></li>
           <li class="ms-6 pb-8"><span class="absolute -start-2.5 mt-1.5 h-4 w-4 rounded-full bg-ink-900 dark:bg-ink-100"></span><h4 class="font-medium">MSc — University of Sussex — 2023–2024</h4></li>
@@ -310,9 +337,9 @@
       </section>
 
       <!-- ===== CV (selected publications read from PUBS) ===== -->
-      <section id="cv" class="mt-16">
-        <h3 class="text-2xl font-semibold tracking-tight">Short Curriculum Vitae</h3>
-        <div class="mt-6 rounded-2xl border border-ink-200 dark:border-ink-700 p-6 print:shadow-none">
+      <section id="cv" class="mt-20">
+        <h3 class="section-title">Short Curriculum Vitae</h3>
+        <div class="mt-6 card-surface p-6 print:shadow-none">
           <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div>
               <h4 class="text-2xl font-semibold">Samson Odan</h4>
@@ -347,9 +374,9 @@
       </section>
 
       <!-- Contact CTA -->
-      <section id="contact" class="mt-16 mb-24">
-        <div class="rounded-3xl border border-ink-200 dark:border-ink-700 p-8 md:p-10">
-          <h3 class="text-2xl font-semibold tracking-tight">Contact</h3>
+      <section id="contact" class="mt-20 mb-24">
+        <div class="card-surface rounded-3xl p-8 md:p-10">
+          <h3 class="section-title">Contact</h3>
           <p class="mt-2 text-ink-600 dark:text-ink-300">I’m open to collaboration and talks. For the quickest response, email me; otherwise, connect on LinkedIn.</p>
           <div class="mt-4 flex flex-wrap gap-3 text-sm">
             <a id="emailLink" href="#" class="underline" data-user="odansamson" data-domain="gmail" data-tld="com">Reveal email</a>
@@ -769,13 +796,14 @@
       const typeColor = {
         preprint:'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-700',
         journal:'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-700',
-        conference:'bg-sky-50 dark:bg-sky-900/20 border-sky-200 dark:border-sky-700'
+        conference:'bg-sky-50 dark:bg-sky-900/20 border-sky-200 dark:border-sky-700',
+        project:'bg-violet-50 dark:bg-violet-900/20 border-violet-200 dark:border-violet-700'
       }[t] || 'bg-white/70 dark:bg-gray-900/60';
       return `
-      <article class="rounded-2xl border ${typeColor} backdrop-blur-sm p-4 shadow-sm" data-type="${t}" data-selected="${p.selected}">
+      <article class="card-surface ${typeColor} p-4 sm:p-5" data-type="${t}" data-selected="${p.selected}">
         <div class="flex items-start justify-between gap-4">
           <div>
-            <h3 class="font-medium text-gray-900 dark:text-gray-100">${p.title}</h3>
+            <h3 class="font-medium text-gray-900 dark:text-gray-100 leading-snug">${p.title}</h3>
             <p class="mt-1 text-sm text-gray-700 dark:text-gray-300">${fmtAuthors(p.authors||[])}</p>
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">${p.venue||''}${p.year ? ' · ' + p.year : ''}</p>
           </div>
@@ -978,15 +1006,15 @@
     function renderExperience(){
       const ol = document.getElementById('expTimeline'); ol.innerHTML='';
       EXPERIENCE.forEach((item, idx)=>{
-        const li = document.createElement('li'); li.className = 'mb-10 ml-6';
+        const li = document.createElement('li'); li.className = 'mb-8 ml-6';
         li.innerHTML = `
           <span class="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 ring-8 ring-white dark:ring-gray-950">
             <span class="h-2.5 w-2.5 rounded-full bg-white dark:bg-gray-900"></span>
           </span>
-          <div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-gray-900/60 backdrop-blur-sm p-4 shadow-sm">
+          <div class="card-surface p-4 sm:p-5">
             <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="font-medium text-gray-900 dark:text-gray-100">${item.org} — ${item.role}</h3>
-              <span class="text-xs font-medium text-gray-500 dark:text-gray-400">${item.years}</span>
+              <h3 class="font-medium text-gray-900 dark:text-gray-100 leading-snug">${item.org} — ${item.role}</h3>
+              <span class="text-xs font-medium text-gray-500 dark:text-gray-400 rounded-full border border-gray-200 dark:border-gray-700 px-2 py-0.5">${item.years}</span>
             </div>
             ${item.bullets?.length ? `<ul class="mt-3 list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">${item.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>`:''}
             ${item.tags?.length ? `<div class="mt-3 flex flex-wrap gap-2">${item.tags.map(chip).join('')}</div>`:''}
@@ -1003,10 +1031,10 @@
       ul.innerHTML = '';
       TALKS.sort((a,b)=>(b.year||0)-(a.year||0)).forEach(t=>{
         const li = document.createElement('li');
-        li.className = 'rounded-2xl border border-ink-200 dark:border-ink-700 p-5';
+        li.className = 'card-surface p-5';
         li.innerHTML = `
           <div class="flex flex-wrap items-baseline justify-between gap-2">
-            <h4 class="font-medium">${t.title}</h4>
+            <h4 class="font-medium leading-snug">${t.title}</h4>
             <span class="text-xs text-ink-500 dark:text-ink-300">${t.type||''}</span>
           </div>
           <p class="mt-1 text-sm text-ink-600 dark:text-ink-300"><em>${t.venue||''}</em> ${t.year?`· ${t.year}`:''}</p>
@@ -1022,7 +1050,7 @@
       const ul = document.getElementById('awardList'); ul.innerHTML='';
       AWARDS.sort((a,b)=>(b.year||0)-(a.year||0)).forEach(a=>{
         const li=document.createElement('li');
-        li.className='rounded-2xl border border-ink-200 dark:border-ink-700 p-5';
+        li.className='card-surface p-5';
         li.innerHTML = `<h4 class="font-medium">${a.name}</h4>
           <p class="mt-1 text-sm text-ink-600 dark:text-ink-300">${a.issuer || ''} ${a.year?`· ${a.year}`:''}</p>`;
         ul.appendChild(li);
@@ -1087,7 +1115,7 @@
       ul.innerHTML = '';
       EXTRACURRICULAR.forEach(e=>{
         const li = document.createElement('li');
-        li.className = 'rounded-2xl border border-ink-200 dark:border-ink-700 p-5';
+        li.className = 'card-surface p-5';
         li.innerHTML = `
           <h4 class="font-medium">${e.name}</h4>
           <p class="mt-1 text-sm text-ink-600 dark:text-ink-300">${e.place}${e.years ? ' · ' + e.years : ''}</p>
